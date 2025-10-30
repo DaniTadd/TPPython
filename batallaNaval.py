@@ -17,20 +17,10 @@ def cantidadDeBarcosDeTamaño(barcos: list[BarcoEnGrilla], tamaño: int) -> int:
         cantidad de barcos de tamaño *tamaño* en barcos
     """
     cantidad:int = 0
-    if sonBarcosVálidos(barcos) and hayBarcosSuperpuestosOAdyacentes(barcos):
-        for barco in barcos:
-            cantidad += unoSiCeroSiNo(tamañoBarco(barco) == tamaño)
+    for barco in barcos:
+        cantidad += unoSiCeroSiNo(tamañoBarco(barco) == tamaño)
+    return cantidad
 
-    return cantidad # TODO: Implementame
-"""Duda respecto al ejercicio 1, ¿hago algo si no son barcos válidos? mensaje
-al usuario? y si hay superpuestos? intenté verificarlo con la segunda 
-condición del and, abajo tengo superpuestos y da cero la cantidad de Barcos de Tamaño."""
-print(cantidadDeBarcosDeTamaño((
-(('H', 3), ('H', 4), ('H', 5)),
-(('H', 3), ('H', 4), ('H', 5)),
-(('F', 4), ('E', 4)),
-(('B', 4), ('B', 3), ('B', 2))), 3
-))  
 ## Ejercicio 2
 
 def nuevoJuego(
@@ -38,23 +28,93 @@ def nuevoJuego(
         cantidadDeColumnas: int,
         barcosDisponibles: list[Barco]
     ) -> EstadoJuego:
-    """ Agregar docstring acá
+
     """
-    # TODO: Implementame
-    return((5,5), [3, 3, 2], [UNO],
-            ([[VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO]],
-            [[VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO]]),
-            ([[VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO]],
-            [[VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO], [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO],
-             [VACÍO, VACÍO, VACÍO, VACÍO, VACÍO]])
-    )
+    Arma un juego nuevo con tableros de Dimensiones *cantidadDeFilas* X *cantidadDeColumnas*
+    con los barcos válidos *barcosDisponibles*, y dos tableros VACÍOS para los dos jugadores.
+    PRE: 
+        las dimensiones son válidas: {cantidadDeFilasVálida} cantidadDeColumnas >= 1
+        la cantidad de barcos es válida {len(barcosDisponibles) > 0}
+
+    ARGS:
+        cantidadDeFilas (int): la cantidad de filas que va a tener la grilla
+        cantidaDeColumnas (int): la cantidad de columnas que va a tener la grilla
+        barcosDisponibles (list[barco]): los barcos que hay que colocar.
+    RETURNS:
+        Un Tableros válidos, uno para cada jugador y los barcos disponibles para colocar.
+
+    """
+    
+    tablero_jugador_uno: Tablero = nuevoTablero(cantidadDeFilas, cantidadDeColumnas)
+    tablero_jugador_dos: Tablero = nuevoTablero(cantidadDeFilas, cantidadDeColumnas)
+    return ((cantidadDeFilas, cantidadDeColumnas),
+            barcosDisponibles,
+            jugadorQueEmpieza(),
+            tablero_jugador_uno,
+            tablero_jugador_dos)
+
+
+def crearGrillaVacía(cantidadDeFilas:int, cantidadDeColumnas:int) -> Grilla:
+    i_fila:int = 0
+    i_columna:int = 0
+    grilla_nueva: Grilla = []
+    for i_fila in range(cantidadDeFilas):
+        grilla_nueva.append([])
+        for i_columna in range(cantidadDeColumnas):
+            grilla_nueva[i_fila].append(VACÍO)
+    return grilla_nueva
+
+def nuevoTablero(cantidadDeFilas:int, cantidadDeColumnas:int) -> Tablero:
+    tableroNuevo:Tablero = (crearGrillaVacía(cantidadDeFilas, cantidadDeColumnas),
+                            crearGrillaVacía(cantidadDeFilas, cantidadDeColumnas))
+    return tableroNuevo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Ejercicio 3
 
